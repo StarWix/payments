@@ -51,7 +51,8 @@ public class App extends Jooby {
         final Config config = require(Config.class);
         final File file = new File(config.getString("file.commissions"));
         final CommissionService commissionService = require(CommissionService.class);
-        final CommissionList commissionList = commissionService.load(file);
+        final CommissionList commissionList = commissionService.parseFile(file);
+        commissionService.deleteAll();
         commissionService.save(commissionList.getCommissions());
     }
 
