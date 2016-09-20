@@ -3,11 +3,10 @@ package com.starwix;
 import com.starwix.controller.api.CommissionController;
 import com.starwix.controller.api.TransactionController;
 import com.starwix.entities.CommissionList;
+import com.starwix.services.CommissionService;
 import com.typesafe.config.Config;
 import org.jooby.Jooby;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 /**
@@ -23,15 +22,11 @@ public class App extends Jooby {
 
         onStart(() -> {
             final Config config = require(Config.class);
+            final File file = new File(config.getString("file.commissions"));
 
-            final File file = new File(config.getString("commissions"));
-
-            final JAXBContext jc = JAXBContext.newInstance(CommissionList.class);
-            final Unmarshaller unmarshaller = jc.createUnmarshaller();
-
-            final CommissionList commissionList = (CommissionList) unmarshaller.unmarshal(file);
-
-            System.out.println(commissionList);
+            final CommissionService commissionService = require(CommissionService.class);
+            final CommissionList commissionList = commissionService.load(file);
+            commissionService.save(commissionList.getCommissions());
         });
     }
 
