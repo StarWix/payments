@@ -23,6 +23,7 @@
         <!-- Startup class -->
         <application.class>com.starwix.App</application.class>
         <liquibase.version>3.5.1</liquibase.version>
+        <credit.card.number.verstion>1.10.01</credit.card.number.verstion>
     </properties>
 
     <dependencies>
@@ -85,6 +86,20 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>org.jooby</groupId>
+            <artifactId>jooby-gson</artifactId>
+            <version>${jooby.version}</version>
+        </dependency>
+
+        <!-- Credit card number -->
+        <dependency>
+            <groupId>us.fatehi</groupId>
+            <artifactId>credit_card_number</artifactId>
+            <version>${credit.card.number.verstion}</version>
         </dependency>
     </dependencies>
 

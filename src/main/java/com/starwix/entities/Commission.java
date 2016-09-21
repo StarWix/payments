@@ -1,5 +1,6 @@
 package com.starwix.entities;
 
+import com.starwix.entities.enums.Brand;
 import com.starwix.entities.enums.Currency;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,14 +15,14 @@ import java.math.BigDecimal;
 public class Commission {
     @XmlAttribute
     private int id;
-    private String brand;
+    private Brand brand;
     private Currency currency;
     private BigDecimal value;
 
     public Commission() {
     }
 
-    public Commission(final int id, final String brand, final Currency currency, final BigDecimal value) {
+    public Commission(final int id, final Brand brand, final Currency currency, final BigDecimal value) {
         this.id = id;
         this.brand = brand;
         this.currency = currency;
@@ -32,7 +33,7 @@ public class Commission {
         return id;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 

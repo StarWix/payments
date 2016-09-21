@@ -1,6 +1,8 @@
 package com.starwix.controller.api;
 
 import com.starwix.entities.enums.Currency;
+import com.starwix.exceptions.BrandNotSupportedException;
+import com.starwix.exceptions.TransactionUnsupportedException;
 import com.starwix.services.CommissionService;
 import org.jooby.mvc.GET;
 import org.jooby.mvc.Path;
@@ -27,7 +29,11 @@ public class CommissionController {
 
     @GET
     @Path("/calc")
-    public String calc(final String brand, final Currency currency, final BigDecimal amount) {
-        return commissionService.calc(brand, currency, amount).toString();
+    public BigDecimal calc(final String brand, final Currency currency, final BigDecimal amount) {
+        try {
+            return commissionService.calc(brand, currency, amount);
+        } catch (final TransactionUnsupportedException|BrandNotSupportedException e) {
+            return null;
+        }
     }
 }

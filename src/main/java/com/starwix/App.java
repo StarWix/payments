@@ -15,6 +15,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.jooby.Jooby;
 import org.jooby.jdbc.Jdbc;
+import org.jooby.json.Gzon;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -29,6 +30,7 @@ public class App extends Jooby {
         assets("/assets/**");
 
         use(new Jdbc("db.main"));
+        use(new Gzon());
 
         use(TransactionController.class);
         use(CommissionController.class);

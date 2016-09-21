@@ -1,6 +1,7 @@
 package com.starwix.repositories;
 
 import com.starwix.entities.Commission;
+import com.starwix.entities.enums.Brand;
 import com.starwix.entities.enums.Currency;
 import com.starwix.utils.DBUtils;
 
@@ -29,7 +30,7 @@ public class CommissionRepository {
         try {
             return new Commission(
                     rs.getInt("id"),
-                    rs.getString("brand"),
+                    Brand.valueOf(rs.getString("brand")),
                     Currency.valueOf(rs.getString("currency")),
                     rs.getBigDecimal("value")
             );
@@ -45,8 +46,8 @@ public class CommissionRepository {
             for (final Commission commission : commissions) {
                 final PreparedStatement ps = connection.prepareStatement("INSERT INTO commission(id, brand, currency, value) VALUES(?, ?, ?, ?)");
                 ps.setInt(1, commission.getId());
-                ps.setString(2, commission.getBrand());
-                ps.setString(3, commission.getCurrency().toString());
+                ps.setString(2, commission.getBrand().name());
+                ps.setString(3, commission.getCurrency().name());
                 ps.setBigDecimal(4, commission.getValue());
                 ps.executeUpdate();
             }
@@ -76,12 +77,12 @@ public class CommissionRepository {
         }
     }
 
-    public Optional<Commission> findByBrandAndCurrency(final String brand, final Currency currency) {
+    public Optional<Commission> findByBrandAndCurrency(final Brand brand, final Currency currency) {
         try {
             final Connection connection = dataSource.getConnection();
             final PreparedStatement ps = connection.prepareStatement("SELECT id, brand, currency, value FROM commission WHERE brand = ? AND currency = ?");
-            ps.setString(1, brand);
-            ps.setString(2, currency.toString());
+            ps.setString(1, brand.name());
+            ps.setString(2, currency.name());
             return DBUtils.mapSingle(ps.executeQuery(), CommissionRepository.mapObject);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
