@@ -5,6 +5,7 @@ import com.starwix.entities.requests.TransactionRequest;
 import com.starwix.exceptions.BrandNotSupportedException;
 import com.starwix.exceptions.TransactionUnsupportedException;
 import com.starwix.services.TransactionService;
+import org.jooby.Err;
 import org.jooby.mvc.Body;
 import org.jooby.mvc.POST;
 import org.jooby.mvc.Path;
@@ -28,7 +29,7 @@ public class TransactionController {
         try {
             return transactionService.create(transactionRequest);
         } catch (TransactionUnsupportedException|BrandNotSupportedException e) {
-            return null;
+            throw new Err(404);
         }
     }
 }
