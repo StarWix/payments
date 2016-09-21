@@ -51,6 +51,9 @@ public class CommissionService {
     }
 
     public BigDecimal calc(final String number, final Currency currency, final BigDecimal amount) throws TransactionUnsupportedException, BrandNotSupportedException {
+        if (amount.compareTo(BigDecimal.ONE) < 0) {
+            throw new IllegalArgumentException(amount.toString());
+        }
         final Brand brand = Brand.byNumber(number);
         final Optional<Commission> commission = commissionRepository.findByBrandAndCurrency(brand, currency);
         if (!commission.isPresent()) {

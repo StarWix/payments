@@ -29,9 +29,9 @@ public class CommissionController {
 
     @GET
     @Path("/calc")
-    public BigDecimal calc(final String brand, final Currency currency, final BigDecimal amount) {
+    public BigDecimal calc(final String number, final Currency currency, final BigDecimal amount) {
         try {
-            return commissionService.calc(brand, currency, amount);
+            return commissionService.calc(number, currency, amount);
         } catch (final TransactionUnsupportedException|BrandNotSupportedException e) {
             return null;
         }

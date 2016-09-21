@@ -19,6 +19,8 @@ import org.jooby.Jooby;
 import org.jooby.hbv.Hbv;
 import org.jooby.jdbc.Jdbc;
 import org.jooby.json.Gzon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import javax.validation.ConstraintViolation;
@@ -34,10 +36,21 @@ import java.util.stream.Collectors;
  * @author jooby generator
  */
 public class App extends Jooby {
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
+
     {
         use(new Jdbc("db.main"));
         use(new Hbv(CardInformation.class, TransactionRequest.class));
         use(new Gzon());
+
+        before((req, rsp) -> logger.info(
+                req.method() + " " + req.path() + "\n" +
+                req.headers() + "\n" +
+                req.cookies() + "\n" +
+                req.params() + "\n" //+
+                //TODO: contribute to jooby or create issue. Throws FileAlreadyExistsException when body() call a few times.
+                // req.body().toOptional() + "\n"
+        ));
 
         assets("/", "index.html");
         assets("/assets/**");
