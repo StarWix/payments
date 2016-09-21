@@ -24,6 +24,7 @@
         <application.class>com.starwix.App</application.class>
         <liquibase.version>3.5.1</liquibase.version>
         <credit.card.number.verstion>1.10.01</credit.card.number.verstion>
+        <hibernate.version>5.2.4.Final</hibernate.version>
     </properties>
 
     <dependencies>
@@ -100,6 +101,12 @@
             <groupId>us.fatehi</groupId>
             <artifactId>credit_card_number</artifactId>
             <version>${credit.card.number.verstion}</version>
+        </dependency>
+
+        <!-- Hibernate validator -->
+        <dependency>
+            <groupId>org.jooby</groupId>
+            <artifactId>jooby-hbv</artifactId>
         </dependency>
     </dependencies>
 
