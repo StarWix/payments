@@ -3,6 +3,7 @@ package com.starwix.repositories;
 import com.starwix.entities.Commission;
 import com.starwix.entities.enums.Brand;
 import com.starwix.entities.enums.Currency;
+import com.starwix.exceptions.SQLRuntimeException;
 import com.starwix.utils.DBUtils;
 
 import javax.inject.Inject;
@@ -35,7 +36,7 @@ public class CommissionRepository {
                     rs.getBigDecimal("value")
             );
         } catch (final SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLRuntimeException(e);
         }
     };
 
@@ -55,7 +56,7 @@ public class CommissionRepository {
 
             connection.setAutoCommit(true);
         } catch (final SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLRuntimeException(e);
         }
     }
 
@@ -63,7 +64,7 @@ public class CommissionRepository {
         try {
             dataSource.getConnection().prepareStatement("TRUNCATE TABLE commission").executeUpdate();
         } catch (final SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLRuntimeException(e);
         }
     }
 
@@ -73,7 +74,7 @@ public class CommissionRepository {
             final PreparedStatement ps = connection.prepareStatement("SELECT id, brand, currency, value FROM commission");
             return DBUtils.map(ps.executeQuery(), CommissionRepository.mapObject);
         } catch (final SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLRuntimeException(e);
         }
     }
 
@@ -85,7 +86,7 @@ public class CommissionRepository {
             ps.setString(2, currency.name());
             return DBUtils.mapSingle(ps.executeQuery(), CommissionRepository.mapObject);
         } catch (final SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLRuntimeException(e);
         }
     }
 }

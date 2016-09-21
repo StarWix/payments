@@ -26,6 +26,7 @@ public class TransactionController {
     @POST
     public Transaction post(@Body final TransactionRequest transactionRequest) {
         try {
+            System.out.println(transactionRequest);
             return transactionService.create(transactionRequest);
         } catch (TransactionUnsupportedException|BrandNotSupportedException e) {
             return null;

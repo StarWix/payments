@@ -21,9 +21,11 @@ public class DBUtils {
 
     public static <T> Optional<T> mapSingle(final ResultSet rs, final Function<ResultSet, T> mapObject) throws SQLException {
         final List<T> result = map(rs, mapObject);
-        if (result.size() > 1) {
+        if (result.isEmpty()) {
+            return Optional.empty();
+        } else if (result.size() > 1) {
             throw new IllegalStateException(result.size() + ": " + result);
         }
-        return Optional.ofNullable(result.get(0));
+        return Optional.of(result.get(0));
     }
 }

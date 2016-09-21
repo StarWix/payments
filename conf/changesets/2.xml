@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="2" author="StarWix">
+        <comment>Create table for transaction log</comment>
+        <createTable tableName="transaction">
+            <column name="id" type="LONG" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_transaction_id" nullable="false"/>
+            </column>
+            <column name="transaction" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="transaction"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

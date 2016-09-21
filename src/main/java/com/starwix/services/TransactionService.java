@@ -8,7 +8,8 @@ import com.starwix.repositories.TransactionRepository;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * Created by starwix on 18.9.16.
@@ -29,14 +30,14 @@ public class TransactionService {
      *
      * @return createdDate of transaction.
      */
-    private Date moveMoney(final TransactionRequest transactionRequest) {
+    private LocalDateTime moveMoney(final TransactionRequest transactionRequest, final BigDecimal commission) {
         // do something.
-        return new Date();
+        return LocalDateTime.now(ZoneOffset.UTC);
     }
 
     public Transaction create(final TransactionRequest request) throws TransactionUnsupportedException, BrandNotSupportedException {
         final BigDecimal commission = commissionService.calc(request.getSender().getNumber(), request.getCurrency(), request.getAmount());
-        final Date createdDate = moveMoney(request);
+        final LocalDateTime createdDate = moveMoney(request, commission);
         final Long id = transactionRepository.save(request, commission, createdDate);
         return Transaction.valueOf(id, request, commission, createdDate);
     }
