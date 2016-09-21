@@ -15,7 +15,7 @@ import javax.inject.Inject;
 /**
  * Created by starwix on 18.9.16.
  */
-@Path("/api/transaction")
+@Path("/api/transactions")
 public class TransactionController {
     private final TransactionService transactionService;
 

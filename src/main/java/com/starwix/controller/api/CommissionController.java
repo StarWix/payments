@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by starwix on 18.9.16.
  */
-@Path("/api/commission")
+@Path("/api/commissions")
 public class CommissionController {
     private final CommissionService commissionService;
 
