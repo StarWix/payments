@@ -1,6 +1,7 @@
-Приложение запускать с параметром -Dfile.commissions=path, где path - путь к xml-файлу с коммиссиями (например ~/commissions.xml).
+Приложение запускать с параметром `-Dfile.commissions=path`, где `path` - путь к xml-файлу с коммиссиями (например `-Dfile.commissions=~/commissions.xml`).
 
 Пример файла:
+```
 <commissions>
 	<commission id="1">
 		<brand>MASTERCARD</brand>
@@ -23,3 +24,4 @@
 		<value>1.5</value>
 	</commission>
 </commissions>
+```
