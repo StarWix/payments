@@ -1,13 +1,18 @@
 package com.starwix.repositories;
 
 import com.starwix.entities.Commission;
+import com.starwix.entities.enums.Currency;
+import com.starwix.utils.DBUtils;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Created by starwix on 20.9.16.
@@ -19,6 +24,19 @@ public class CommissionRepository {
     public CommissionRepository(final DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    private static Function<ResultSet, Commission> mapObject = rs -> {
+        try {
+            return new Commission(
+                    rs.getInt("id"),
+                    rs.getString("brand"),
+                    Currency.valueOf(rs.getString("currency")),
+                    rs.getBigDecimal("value")
+            );
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
+    };
 
     public void save(final List<Commission> commissions) {
         try {
@@ -43,6 +61,28 @@ public class CommissionRepository {
     public void deleteAll() {
         try {
             dataSource.getConnection().prepareStatement("TRUNCATE TABLE commission").executeUpdate();
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Commission> findAll() {
+        try {
+            final Connection connection = dataSource.getConnection();
+            final PreparedStatement ps = connection.prepareStatement("SELECT id, brand, currency, value FROM commission");
+            return DBUtils.map(ps.executeQuery(), CommissionRepository.mapObject);
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Optional<Commission> findByBrandAndCurrency(final String brand, final Currency currency) {
+        try {
+            final Connection connection = dataSource.getConnection();
+            final PreparedStatement ps = connection.prepareStatement("SELECT id, brand, currency, value FROM commission WHERE brand = ? AND currency = ?");
+            ps.setString(1, brand);
+            ps.setString(2, currency.toString());
+            return DBUtils.mapSingle(ps.executeQuery(), CommissionRepository.mapObject);
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
