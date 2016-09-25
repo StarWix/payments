@@ -5,12 +5,14 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * Created by starwix on 21.9.16.
  */
 public class CardInformation {
     @NotBlank(message = "Укажите номер карты")
+    @Pattern(regexp = "\\d{6,}", message = "Карта должна содержать только цифры")
     private String number;
     @NotBlank(message = "Укажите имя")
     private String firstName;

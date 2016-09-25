@@ -1,5 +1,6 @@
 package com.starwix;
 
+import com.google.gson.JsonSyntaxException;
 import com.starwix.controller.api.CommissionController;
 import com.starwix.controller.api.TransactionController;
 import com.starwix.entities.CardInformation;
@@ -76,6 +77,10 @@ public class App extends Jooby {
             } else if (cause instanceof WebError) {
                 rsp.status(Status.BAD_REQUEST);
                 rsp.send(((WebError) cause).getWebMessage());
+            } else if (cause instanceof JsonSyntaxException) {
+                // TODO: improve it. Exception doesn't have error field.
+                rsp.status(Status.BAD_REQUEST);
+                rsp.send("Введены невалидные данные");
             }
         });
     }
