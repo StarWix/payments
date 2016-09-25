@@ -3,17 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Payments</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 </head>
-<body>
-    <div class="model-view" id="payment-form">
+<body class="col-md-offset-3 col-md-6">
+    <div class="model-view payment-form" id="payment-form">
+        <form>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Данные отправителя</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Номер карты" data-bind="value: transaction.sender.number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ММ" data-bind="value: transaction.sender.month">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ГГГГ" data-bind="value: transaction.sender.year">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Имя" data-bind="value: transaction.sender.firstName">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Фамилия" data-bind="value: transaction.sender.lastName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Данные получателя</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Номер карты" data-bind="value: transaction.receiver.number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ММ" data-bind="value: transaction.receiver.month">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ГГГГ" data-bind="value: transaction.receiver.year">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Имя" data-bind="value: transaction.receiver.firstName">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Фамилия" data-bind="value: transaction.receiver.lastName">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Данные платежа</div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="currency" class="control-label col-sm-2">Валюта</label>
+                                <div class="col-sm-10">
+                                    <select id="currency" class="form-control" data-bind="value: transaction.currency">
+                                        <option>BYN</option>
+                                        <option>EUR</option>
+                                        <option>RUB</option>
+                                        <option>USD</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amount" class="control-label col-sm-2">Сумма</label>
+                                <div class="col-sm-10">
+                                    <input id="amount" type="text" class="form-control" data-bind="value: transaction.amount">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commission" class="control-label col-sm-2">Комиссия</label>
+                                <div class="col-sm-10">
+                                    <input id="commission" type="text" class="form-control" data-bind="value: commission" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Отправить</button>
+            </div>
+        </form>
     </div>
 
 
     <script type="application/javascript" src="/assets/js/lib/knockout-3.4.0.min.js"></script>
     <script type="application/javascript" src="/assets/js/lib/knockout.mapping-2.4.1.min.js"></script>
     <script type="application/javascript" src="/assets/js/lib/jquery-3.1.1.min.js"></script>
+    <script type="application/javascript" src="/assets/js/lib/bootstrap.min.js"></script>
     <script type="application/javascript" src="/assets/js/utils.js"></script>
     <script type="application/javascript" src="/assets/js/payment-form.js"></script>
 
