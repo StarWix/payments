@@ -30,7 +30,6 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -71,15 +70,12 @@ public class App extends Jooby {
             if (cause instanceof ConstraintViolationException) {
                 final Set<ConstraintViolation<?>> constraints = ((ConstraintViolationException) cause).getConstraintViolations();
 
-                final Map<Path, Object[]> errors = constraints.stream()
-                        .collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getExecutableParameters));
+                final Map<Path, String> errors = constraints.stream()
+                        .collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage));
                 rsp.send(errors);
             } else if (cause instanceof WebError) {
-                final Map<String, Object> errors = new HashMap<>();
-                errors.put("error", ((WebError) cause).getError());
-                errors.put("args", ((WebError) cause).getArgs());
                 rsp.status(Status.BAD_REQUEST);
-                rsp.send(errors);
+                rsp.send(((WebError) cause).getWebMessage());
             }
         });
     }

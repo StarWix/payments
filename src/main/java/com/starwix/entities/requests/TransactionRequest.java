@@ -3,6 +3,7 @@ package com.starwix.entities.requests;
 import com.starwix.entities.CardInformation;
 import com.starwix.entities.enums.Currency;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -11,14 +12,16 @@ import java.math.BigDecimal;
  * Created by starwix on 21.9.16.
  */
 public class TransactionRequest {
-    @NotNull
+    @NotNull(message = "Укажите данные отправителя")
+    @Valid
     private CardInformation sender;
-    @NotNull
+    @NotNull(message = "Укажите данные получателя")
+    @Valid
     private CardInformation receiver;
-    @NotNull
-    @Min(1)
+    @NotNull(message = "Укажите сумму перевода")
+    @Min(value = 1, message = "Сумма должна быть больше 1")
     private BigDecimal amount;
-    @NotNull
+    @NotNull(message = "Выберите валюту")
     private Currency currency;
 
     public TransactionRequest(final CardInformation sender,

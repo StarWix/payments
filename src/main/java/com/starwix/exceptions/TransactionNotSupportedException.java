@@ -3,9 +3,6 @@ package com.starwix.exceptions;
 import com.starwix.entities.enums.Brand;
 import com.starwix.entities.enums.Currency;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by starwix on 21.9.16.
  */
@@ -28,15 +25,7 @@ public class TransactionNotSupportedException extends Exception implements WebEr
     }
 
     @Override
-    public String getError() {
-        return "transactionNotSupported";
-    }
-
-    @Override
-    public Map<String, Object> getArgs() {
-        final Map<String, Object> args = new HashMap<>();
-        args.put("brand", brand);
-        args.put("currency", currency);
-        return args;
+    public String getWebMessage() {
+        return "Транзакция карты " + brand + " с валютой " + currency + " не поддерживается.";
     }
 }

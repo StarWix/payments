@@ -1,8 +1,5 @@
 package com.starwix.exceptions;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by starwix on 21.9.16.
  */
@@ -19,12 +16,7 @@ public class BrandNotSupportedException extends Exception implements WebError {
     }
 
     @Override
-    public String getError() {
-        return "brandNotSupported";
-    }
-
-    @Override
-    public Map<String, Object> getArgs() {
-        return new HashMap<>();
+    public String getWebMessage() {
+        return "Ваш тип карты не поддерживается";
     }
 }

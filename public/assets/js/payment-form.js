@@ -6,14 +6,32 @@ var PaymentFormViewModel = function() {
 
     self.commission = ko.observable();
 
-    self.errors = ko.observable();
+    self.errors = {
+        fields: ko.observable({}),
+        alert: ko.observable()
+    };
 
     self.isValid = function () {
         return self.transaction.isValid() && self.commission();
     };
 
+    function clearErrors() {
+        self.errors.fields({});
+        self.errors.alert(undefined);
+    }
+
+    function updateErrors(error) {
+        var data = error.responseJSON;
+        if (typeof data === "string") {
+            self.errors.alert(data);
+        } else {
+            self.errors.fields(data);
+        }
+    }
+
     function updateCommission() {
         if (self.transaction.sender.number() && self.transaction.currency() && self.transaction.amount()) {
+            clearErrors();
             $.ajax({
                 url: "/api/commissions/calc",
                 method: "POST",
@@ -25,9 +43,7 @@ var PaymentFormViewModel = function() {
                 success: function (data) {
                     self.commission(data);
                 },
-                error: function (data) {
-                    self.errors(ko.mapping.fromJS(data));
-                }
+                error: updateErrors
             })
         } else {
             self.commission(undefined);
@@ -39,6 +55,16 @@ var PaymentFormViewModel = function() {
     self.transaction.amount.subscribe(updateCommission);
 
     self.send = function() {
-        
+        clearErrors();
+        $.ajax({
+            url: "/api/transactions",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(ko.mapping.toJS(self.transaction)),
+            success: function (data) {
+
+            },
+            error: updateErrors
+        });
     }
 };

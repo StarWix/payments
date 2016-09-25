@@ -8,6 +8,8 @@
 </head>
 <body class="col-md-offset-3 col-md-6">
     <div class="model-view payment-form" id="payment-form">
+        <div class="alert alert-warning" data-bind="text: errors.alert(), visible: errors.alert()"></div>
+
         <form>
             <div class="col-sm-6">
                 <div class="panel panel-primary">
@@ -15,18 +17,23 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Номер карты" data-bind="value: transaction.sender.number">
+                            <p data-bind="visible: errors.fields()['sender.number'], text:  errors.fields()['sender.number']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="ММ" data-bind="value: transaction.sender.month">
+                            <p data-bind="visible: errors.fields()['sender.month'], text:  errors.fields()['sender.month']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="ГГГГ" data-bind="value: transaction.sender.year">
+                            <p data-bind="visible: errors.fields()['sender.year'], text:  errors.fields()['sender.year']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Имя" data-bind="value: transaction.sender.firstName">
+                            <p data-bind="visible: errors.fields()['sender.firstName'], text:  errors.fields()['sender.firstName']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Фамилия" data-bind="value: transaction.sender.lastName">
+                            <p data-bind="visible: errors.fields()['sender.lastName'], text:  errors.fields()['sender.lastName']" class="text-danger"></p>
                         </div>
                     </div>
                 </div>
@@ -37,18 +44,23 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Номер карты" data-bind="value: transaction.receiver.number">
+                            <p data-bind="visible: errors.fields()['receiver.number'], text:  errors.fields()['receiver.number']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="ММ" data-bind="value: transaction.receiver.month">
+                            <p data-bind="visible: errors.fields()['receiver.month'], text:  errors.fields()['receiver.month']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="ГГГГ" data-bind="value: transaction.receiver.year">
+                            <p data-bind="visible: errors.fields()['receiver.year'], text:  errors.fields()['receiver.year']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Имя" data-bind="value: transaction.receiver.firstName">
+                            <p data-bind="visible: errors.fields()['receiver.firstName'], text:  errors.fields()['receiver.firstName']" class="text-danger"></p>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Фамилия" data-bind="value: transaction.receiver.lastName">
+                            <p data-bind="visible: errors.fields()['receiver.lastName'], text:  errors.fields()['receiver.lastName']" class="text-danger"></p>
                         </div>
                     </div>
                 </div>
@@ -68,6 +80,7 @@
                                         <option>RUB</option>
                                         <option>USD</option>
                                     </select>
+                                    <p data-bind="visible: errors.fields()['currency'], text:  errors.fields()['currency']" class="text-danger"></p>
                                 </div>
                             </div>
 
@@ -75,6 +88,7 @@
                                 <label for="amount" class="control-label col-sm-2">Сумма</label>
                                 <div class="col-sm-10">
                                     <input id="amount" type="text" class="form-control" data-bind="value: transaction.amount">
+                                    <p data-bind="visible: errors.fields()['amount'], text:  errors.fields()['amount']" class="text-danger"></p>
                                 </div>
                             </div>
 

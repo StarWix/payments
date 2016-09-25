@@ -10,19 +10,19 @@ import javax.validation.constraints.NotNull;
  * Created by starwix on 21.9.16.
  */
 public class CardInformation {
-    @NotBlank
+    @NotBlank(message = "Укажите номер карты")
     private String number;
-    @NotBlank
+    @NotBlank(message = "Укажите имя")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "Укажите фамилию")
     private String lastName;
-    @NotNull
-    @Min(1)
-    @Max(12)
+    @NotNull(message = "Укажите месяц до которого действует карта")
+    @Min(value = 1, message = "Месяц должен быть в диапозоне от 1 до 12")
+    @Max(value = 12, message = "Месяц должен быть в диапозоне от 1 до 12")
     private Byte month;
-    @NotNull
-    @Min(2000)
-    @Max(2100)
+    @NotNull(message = "Укажите год до которого действует карта")
+    @Min(value = 2016, message = "Год должен быть в диапозоне от 2016 до 2036")
+    @Max(value = 2036, message = "Год должен быть в диапозоне от 2016 до 2036")
     private Short year;
 
     public CardInformation(String number, String firstName, String lastName, Byte month, Short year) {
