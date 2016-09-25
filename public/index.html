@@ -2,9 +2,25 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Create payment</title>
+    <title>Payments</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 </head>
 <body>
+    <div class="model-view" id="payment-form">
 
+    </div>
+
+
+    <script type="application/javascript" src="/assets/js/lib/knockout-3.4.0.min.js"></script>
+    <script type="application/javascript" src="/assets/js/lib/knockout.mapping-2.4.1.min.js"></script>
+    <script type="application/javascript" src="/assets/js/lib/jquery-3.1.1.min.js"></script>
+    <script type="application/javascript" src="/assets/js/utils.js"></script>
+    <script type="application/javascript" src="/assets/js/payment-form.js"></script>
+
+    <script type="application/javascript">
+        $(function() {
+            ko.applyBindings(new PaymentFormViewModel(), document.getElementById("payment-form"));
+        })
+    </script>
 </body>
 </html>
