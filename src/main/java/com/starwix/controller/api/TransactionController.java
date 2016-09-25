@@ -3,9 +3,8 @@ package com.starwix.controller.api;
 import com.starwix.entities.Transaction;
 import com.starwix.entities.requests.TransactionRequest;
 import com.starwix.exceptions.BrandNotSupportedException;
-import com.starwix.exceptions.TransactionUnsupportedException;
+import com.starwix.exceptions.TransactionNotSupportedException;
 import com.starwix.services.TransactionService;
-import org.jooby.Err;
 import org.jooby.mvc.Body;
 import org.jooby.mvc.POST;
 import org.jooby.mvc.Path;
@@ -25,11 +24,7 @@ public class TransactionController {
     }
 
     @POST
-    public Transaction post(@Body final TransactionRequest transactionRequest) {
-        try {
-            return transactionService.create(transactionRequest);
-        } catch (TransactionUnsupportedException|BrandNotSupportedException e) {
-            throw new Err(404);
-        }
+    public Transaction post(@Body final TransactionRequest transactionRequest) throws TransactionNotSupportedException, BrandNotSupportedException {
+        return transactionService.create(transactionRequest);
     }
 }

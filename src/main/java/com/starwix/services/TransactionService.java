@@ -3,7 +3,7 @@ package com.starwix.services;
 import com.starwix.entities.Transaction;
 import com.starwix.entities.requests.TransactionRequest;
 import com.starwix.exceptions.BrandNotSupportedException;
-import com.starwix.exceptions.TransactionUnsupportedException;
+import com.starwix.exceptions.TransactionNotSupportedException;
 import com.starwix.repositories.TransactionRepository;
 
 import javax.inject.Inject;
@@ -35,7 +35,7 @@ public class TransactionService {
         return LocalDateTime.now(ZoneOffset.UTC);
     }
 
-    public Transaction create(final TransactionRequest request) throws TransactionUnsupportedException, BrandNotSupportedException {
+    public Transaction create(final TransactionRequest request) throws TransactionNotSupportedException, BrandNotSupportedException {
         final BigDecimal commission = commissionService.calc(request.getSender().getNumber(), request.getCurrency(), request.getAmount());
         final LocalDateTime createdDate = moveMoney(request, commission);
         final Long id = transactionRepository.save(request, commission, createdDate);

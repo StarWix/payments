@@ -5,7 +5,7 @@ import com.starwix.entities.CommissionList;
 import com.starwix.entities.enums.Brand;
 import com.starwix.entities.enums.Currency;
 import com.starwix.exceptions.BrandNotSupportedException;
-import com.starwix.exceptions.TransactionUnsupportedException;
+import com.starwix.exceptions.TransactionNotSupportedException;
 import com.starwix.repositories.CommissionRepository;
 
 import javax.inject.Inject;
@@ -50,14 +50,14 @@ public class CommissionService {
         return commissionRepository.findAll();
     }
 
-    public BigDecimal calc(final String number, final Currency currency, final BigDecimal amount) throws TransactionUnsupportedException, BrandNotSupportedException {
+    public BigDecimal calc(final String number, final Currency currency, final BigDecimal amount) throws TransactionNotSupportedException, BrandNotSupportedException {
         if (amount.compareTo(BigDecimal.ONE) < 0) {
             throw new IllegalArgumentException(amount.toString());
         }
         final Brand brand = Brand.byNumber(number);
         final Optional<Commission> commission = commissionRepository.findByBrandAndCurrency(brand, currency);
         if (!commission.isPresent()) {
-            throw new TransactionUnsupportedException(brand, currency);
+            throw new TransactionNotSupportedException(brand, currency);
         }
         return amount.multiply(commission.get().getValue()).divide(new BigDecimal(100), BigDecimal.ROUND_CEILING, 2);
     }
