@@ -54,4 +54,27 @@ public class Commission {
                 ", value=" + value +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Commission that = (Commission) o;
+
+        if (id != that.id) return false;
+        if (brand != that.brand) return false;
+        if (currency != that.currency) return false;
+        return value.equals(that.value);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + brand.hashCode();
+        result = 31 * result + currency.hashCode();
+        result = 31 * result + value.hashCode();
+        return result;
+    }
 }

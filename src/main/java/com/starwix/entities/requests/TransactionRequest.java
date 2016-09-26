@@ -58,4 +58,27 @@ public class TransactionRequest {
                 ", currency=" + currency +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TransactionRequest)) return false;
+
+        TransactionRequest that = (TransactionRequest) o;
+
+        if (!sender.equals(that.sender)) return false;
+        if (!receiver.equals(that.receiver)) return false;
+        if (!amount.equals(that.amount)) return false;
+        return currency == that.currency;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = sender.hashCode();
+        result = 31 * result + receiver.hashCode();
+        result = 31 * result + amount.hashCode();
+        result = 31 * result + currency.hashCode();
+        return result;
+    }
 }

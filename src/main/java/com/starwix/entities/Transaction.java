@@ -34,6 +34,25 @@ public class Transaction extends TransactionStored {
                 "} " + super.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        if (!super.equals(o)) return false;
+
+        Transaction that = (Transaction) o;
+
+        return id.equals(that.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + id.hashCode();
+        return result;
+    }
+
     public static Transaction valueOf(final Long id,
                                       final TransactionRequest request,
                                       final BigDecimal commission,

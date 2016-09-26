@@ -40,6 +40,27 @@ public class TransactionStored extends TransactionRequest {
                 "} " + super.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TransactionStored)) return false;
+        if (!super.equals(o)) return false;
+
+        TransactionStored that = (TransactionStored) o;
+
+        if (!commission.equals(that.commission)) return false;
+        return createdDate.equals(that.createdDate);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + commission.hashCode();
+        result = 31 * result + createdDate.hashCode();
+        return result;
+    }
+
     public static TransactionStored valueOf(final TransactionRequest request,
                                             final BigDecimal commission,
                                             final LocalDateTime createdDate) {

@@ -8,6 +8,7 @@ import com.starwix.repositories.TransactionRepository;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -15,12 +16,15 @@ import java.time.ZoneOffset;
  * Created by starwix on 18.9.16.
  */
 public class TransactionService {
+    private final Clock clock;
     private final TransactionRepository transactionRepository;
     private final CommissionService commissionService;
 
     @Inject
-    public TransactionService(final TransactionRepository transactionRepository,
+    public TransactionService(final Clock clock,
+                              final TransactionRepository transactionRepository,
                               final CommissionService commissionService) {
+        this.clock = clock.withZone(ZoneOffset.UTC);
         this.transactionRepository = transactionRepository;
         this.commissionService = commissionService;
     }
@@ -32,7 +36,7 @@ public class TransactionService {
      */
     private LocalDateTime moveMoney(final TransactionRequest transactionRequest, final BigDecimal commission) {
         // do something.
-        return LocalDateTime.now(ZoneOffset.UTC);
+        return LocalDateTime.now(clock);
     }
 
     public Transaction create(final TransactionRequest request) throws TransactionNotSupportedException, BrandNotSupportedException {

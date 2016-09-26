@@ -25,6 +25,7 @@
         <liquibase.version>3.5.1</liquibase.version>
         <credit.card.number.verstion>1.10.01</credit.card.number.verstion>
         <hibernate.version>5.2.4.Final</hibernate.version>
+        <mockito.version>1.10.19</mockito.version>
     </properties>
 
     <dependencies>
@@ -58,6 +59,13 @@
             <artifactId>jooby</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+            <version>${mockito.version}</version>
         </dependency>
 
         <!-- Fluent HC -->
