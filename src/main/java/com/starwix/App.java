@@ -31,6 +31,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
 import java.io.File;
 import java.sql.SQLException;
+import java.time.Clock;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,6 +43,7 @@ public class App extends Jooby {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     {
+        use((env, conf, binder) -> binder.bind(Clock.class).toInstance(Clock.systemDefaultZone()));
         use(new Jdbc("db.main"));
         use(new Hbv(CardInformation.class, TransactionRequest.class));
         use(new Gzon());

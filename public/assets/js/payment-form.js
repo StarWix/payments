@@ -62,9 +62,13 @@ var PaymentFormViewModel = function() {
             contentType: "application/json",
             data: JSON.stringify(ko.mapping.toJS(self.transaction)),
             success: function (data) {
-
+                $('#success-modal').modal()
             },
             error: updateErrors
         });
+    };
+
+    self.close = function() {
+        window.location.reload();
     }
 };

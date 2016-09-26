@@ -107,6 +107,20 @@
                 <button class="btn btn-primary btn-block" data-bind="click: send, enable: isValid()">Отправить</button>
             </div>
         </form>
+
+        <div id="success-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" aria-label="Закрыть" data-bind="click: close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Успешно</h4>
+                    </div>
+                    <div class="modal-body">
+                        Транзакция произведена
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
